@@ -57,6 +57,6 @@ function showurl(t) {
     }
     for (f = 0; f < s.length; f++) {
         for (e = !1, r = 0; 0 == e && r < n;) i = extractDomain(s[f].href), o = extractDomain(exception[r]), i.match(o) && (e = !0), r++;
-        0 == e && (s[f].href = 'https://nyansubs.yuudachi.xyz/a/' + setting.path + btoa('pepekstrKzrMekiUsMek' + convertstr(s[f].href), convertstr("root")), s[f].rel = "nofollow", s[f].target = "_blank")
+        0 == e && (s[f].href = 'https://nyansubs.yuudachi.xyz/a/' + setting.path + btoa(btoa('pepekstrKzrMekiUsMek' + convertstr(s[f].href)), convertstr("root")), s[f].rel = "nofollow", s[f].target = "_blank")
     }
 }
