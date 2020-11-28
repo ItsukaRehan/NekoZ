@@ -1,0 +1,20 @@
+
+
+
+
+
+
+
+
+
+
+
+&f&m--->------&6&k[&aSelamat Datang Di Server Minecraft&3&6&k]&f&m -----<---- 
+       &f&m---->--------&6&k[&3 Kress Network &6&k]&f&m -------<---- 
+         &f&m--->------&6&k[&f IP:MC.KRESS-NETWORK.COM &6&k]&f&m -----<--- 
+&7Type &a/Help&7   For a list of commands.
+&7Type &a/Helpop&7   To request assistance to staff.
+&7Type &a/List&7   To see who else is online.
+&7Type &a/Register&7 To register login password :)
+&7Type &a/Login&7    To Login Password &a{PLAYER}&6!
+&7Players online:&a {ONLINE} &a- World time:&a {WORLDTIME12}
