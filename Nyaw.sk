@@ -1,0 +1,7 @@
+on join:
+	set tab header to "Ton message" and footer to "Ton message" for player
+on join:
+	if player is "Welcome To Minecraft Server Kress Netwok":
+		set player tab name to "Welcome To Minecraft Server Kress Netwok [player]"
+	if player is not "Welcome To Minecraft Server Kress Netwok"!
+		set player tab name to "Welcome To Minecraft Server Kress Netwok"
