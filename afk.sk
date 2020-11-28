@@ -1,0 +1,159 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Author: Hubert Theodore						 #
+# In Game Name: GoldySlime						 #	
+# Skype: hubertheodore						 	#
+# Skript: @AFKHolo							 	#
+#											 	#	
+# Feature:									 	#
+# -Hologram									 	#																		
+# -AFK with Reason							 	#
+# -Sounds									 	#
+# -AFK Timer									 #
+#												 #
+# Plugins Needed:								 #
+# -Holographic Display						 	#
+# -SkRayFall									 #
+#											 	#
+# No Permission Needed for this command			 #
+# Commands: /afk [<reason>]					 	#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+variables:
+	
+	#Auto timer for people if they are not moving in game (in second-1). Example 1 minutes(60 sec) -> 59
+	afkmax= 120
+	
+options:
+	
+	#Change this to change the message when AFK
+	yafk: &7%player% &8is now AFK
+	
+	#Change this to change the message when AFK
+	ylafk: &7%loop-player% &8is now AFK
+	
+	#Change this to change the message when finish AFK
+	nafk: &7%player% &8is no longer AFK
+	
+	#Don't change this
+	alsn: &7[&3 %arg 1% &7]
+	
+	#Change this to change message when you call someone that afk 
+	safk: &f%loop-player% &7is still AFK, we will try to call with sounds.
+
+	#Item Hologram above the player
+	item: Barrier
+	
+	#Hologram Text above the player
+	textholo: &7&m--&c AFK &7&m--
+
+#  DON'T CHANGE ANYTHING BELOW THIS	
+# AFK Command
+
+command /afk [<text>]:
+
+	usage: /afk [<reason>]
+	trigger:
+	
+		if {afk.%player%} is true:
+			delete {afk.%player%}
+			broadcast "{@nafk}"
+			delete holo object "%player%.afk"
+			stop
+			
+		else:
+			if argument 1 is not set:
+				set {afk.%player%} to true
+				broadcast "{@yafk}"
+				create holo object "ItemStack:{@item};{@textholo}" with id "%player%.afk" at location 3.7 meters above player
+				stop
+				
+			else:
+				set {afk.%player%} to true
+				broadcast "{@yafk} because {@alsn}"
+				create holo object "ItemStack:{@item};{@textholo};{@alsn}" with id "%player%.afk" at location 3.7 meters above player
+				stop
+
+function toggleAFK(p: player) :: number:
+	if {afk.%{_p}%} is true:
+		delete {afk.%{_p}%}
+		delete holo object "%{_p}%.afk"
+		set {_i} to 1
+		set {afpl%{_p}%} to 0
+		return {_i}
+	set {afpl%{_p}%} to 0
+
+on chat:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on join:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on quit:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on place:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on death: 
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on command: 
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on tool change:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+	
+on teleport:
+	if toggleAFK(player) = 1:
+		delete holo object "%player%.afk"
+		create holo object "ItemStack:{@item};{@textholo}" with id "%player%.afk" at location 3.7 meters above player
+		broadcast "{@nafk}"
+
+on inventory open:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on join:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+	
+on death of player:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on respawn:
+	if toggleAFK(player) = 1:
+		broadcast "{@nafk}"
+
+on any move:
+	if {afk.%player%} is true:
+		loop all players in radius 2 around player:
+			loop-player is not "%player%":
+				delete holo object "%player%.afk"
+				create holo object "ItemStack:{@item};{@textholo}" with id "%player%.afk" at location 3.7 meters above player
+				stop
+		delete {afk.%player%}
+		broadcast "{@nafk}"
+		delete holo object "%player%.afk"
+	delete {afpl%player%}
+
+every 10 seconds:
+	loop all players:
+		add 10 to {afpl%loop-player%}
+		wait 10 tick
+		if {afpl%loop-player%} is more than {afkmax}+1:
+			if {afk.%loop-player%} is true:
+				stop
+			else:
+				set {afk.%loop-player%} to true
+				broadcast "{@ylafk}"
+				create holo object "ItemStack:{@item};{@textholo}" with id "%loop-player%.afk" at location 3.7 meters above loop-player
+				stop
+	
