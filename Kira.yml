@@ -1,0 +1,64 @@
+BunKira:
+  Mobtype: zombie
+  Display: 'Kira'
+  Health: 70
+  Damage: 1
+  Disguise:
+    Type: Player
+    Skin: YoshikageKira
+  Skills:
+  - Skill{s=KiraDeath} @Self ~onDeath
+  - Skill{s=KillerQueenSpawn} @Self ~onSpawn
+  Options:
+    MaxCombatDistance: 5
+    PreventSunburn: true
+    FollowRange: 200
+    AlwaysShowName: false
+    MovementSpeed: 0.2
+    PreventOtherDrops: true
+  BossBar:
+    Enabled: true
+    Title: 'Yoshikage Kira'
+    Range: 30
+    Color: GREEN
+    Style: SOLID
+  Modules:
+    ThreatTable: true
+  DamageModifiers:
+  - FALL 0
+  Faction: Bun
+  AITargetSelectors:
+  - 0 players
+  AIGoalSelectors:
+  - 0 meleeattack
+  - 1 lookatplayers
+  
+  
+BunKillerQueen:
+  Mobtype: zombie
+  Display: 'Killer Queen'
+  Health: 1
+  Damage: 3
+  Disguise:
+    Type: Player
+    Skin: KillerQueen
+  Skills:
+  - Skill{s=KiraExplode} Timer:100
+  Options:
+    Invincible: true
+    MaxCombatDistance: 30
+    PreventSunburn: true
+    FollowRange: 5
+    AlwaysShowName: false
+    MovementSpeed: 0.5
+    PreventOtherDrops: true
+  Modules:
+    ThreatTable: true
+  DamageModifiers:
+  - FALL 0
+  Faction: Bun
+  AITargetSelectors:
+  - 1 players
+  AIGoalSelectors:
+  - 0 gotoparent
+  - 1 meleeattack

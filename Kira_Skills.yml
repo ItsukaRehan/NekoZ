@@ -1,0 +1,35 @@
+KillerQueenSpawn:
+  Skills:
+  - summon{mob=BunKillerQueen;amount=1;noise=5;os=true;r=1;} @Self
+
+KiraDeath:
+  Skills:
+  - remove @Children
+  - delay 5
+  - remove @self
+  
+KiraExplode:
+  Cooldown: 3
+  Skills:
+  - message{m="Kira&f<&co> Killer Queen has already touched that item"} @Target
+  - effect:explosion{yield=3} @Target
+  - delay 30
+  - effect:particlering{p=largeexplode;a=1;vs=0.5;hs=0.5;s=0;y=0.3;points=5;radius=1} @Target
+  - effect:particles{p=flame;vs=1;hs=3;a=100;s=0.01;}
+  - effect:particles{p=lava;vs=1;hs=1;a=100;s=1;}
+  - effect:particles{p=cloud;vs=1;hs=3;a=100;s=0.01;}
+  - sound{s=entity.enderdragon_fireball.explode} @target
+  - damage{a=7;i=false} @LivingEntitiesInRadius{r=3}
+  - effect:particles{p=explosion;a=5;vs=0.5;hs=0.5;s=0;y=1} @Self
+  - effect:sound{s=entity.generic.explode;v=2;p=0.5} @Self
+  - effect:sound{s=entity.generic.explode;v=2;p=1;repeat=7;repeatInterval=2} @Self
+  - throw{velocity=2;velocityY=10} @PIR{r=5}
+  - effect:particlering{p=explosion;a=20;vs=0.5;hs=0.5;s=0;y=0.3;points=1;radius=1.2} @Self
+  - delay 2
+  - effect:particlering{p=explosion;a=10;vs=0.5;hs=0.5;s=0;y=0.3;points=1;radius=1.4} @Self
+  - delay 2
+  - effect:particlering{p=explosion;a=10;vs=0.5;hs=0.5;s=0;y=0.3;points=1;radius=1.6} @Self
+  - delay 2 
+  - effect:particlering{p=explosion;a=10;vs=0.5;hs=0.5;s=0;y=0.3;points=1;radius=1.8} @Self
+  - delay 2
+  - effect:particlering{p=explosion;a=10;vs=0.5;hs=0.5;s=0;y=0.3;points=1;radius=2} @Self
