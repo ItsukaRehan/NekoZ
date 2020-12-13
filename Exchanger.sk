@@ -1,0 +1,55 @@
+#You can build off of the current configuration.
+#
+#Do not mess with this option.
+
+#The main command, 
+command /exchanger: #Executed command to cause events
+	trigger: #Triggers {Events}
+		wait 1 tick
+		open chest with 4 row named "&e&lExhanger" to player
+		format slot 0 of player with diamond sword named "&eNice Sword" with lore "&b&lCosts:||&7  - 2x Gold Ingot||&7  - 1x Ice Cream Sword||&7A nice sword||Indeed...." to close then run [make player execute command "event-purchase-NiceSword"]
+		format slot 1 of player with stone sword named "&eIce Cream Sword" with lore "&b&lCosts:||&7  - 21x Diamond||&7  - 6x Ice||&7A grand, tasty sword." to close then run [make player execute command "event-purchase-IceCreamSword"]
+		#Code for console to execute command on click instead of the player
+		#format slot 0 of player with stick named "&eIce Cream Sword" with lore "&b&lCosts:||&7  - Diamond||&7  - Ice||&7A grand, tasty sword." to close then run "say hi"
+		#format "slot 1"{Slot number} of player with "stone sword"{Item} named "&eIce Cream Sword"{Item name in GUI} with lore "&b&lCosts:||&7  - 21x Diamond||&7  - 6x Ice||&7A grand, tasty sword."{Lore on item in gui | To go onto the next line for lores, use "||"} to close then run "[make player execute command "event-purchase-IceCreamSword"]"{Command executed}
+		#More examples:
+		#format slot 2 of player with stone named "&eHaste" with lore "&b&lCosts:||&7  - 2x Diamond||&7Hasty!" to close then run [make player execute command "event-purchase-IceCreamSword"]
+		#format slot 3 of player with ice sword named "&eIce" with lore "&b&lCosts:||&7  - 21x Diamond||&7Ice, Ice, BABY!" to close then run [make player execute command "event-purchase-IceCreamSword"]
+		
+#On click item in gui, this command is executed
+#Example:
+#command /event-purchase-IceCreamSword:  #{The command executed} 
+#	trigger: 	
+#		loop 1 times: 	#{Loop 1 time of this event}
+#			loop all items in player's inventory:	#{Checks items in inventory of player}
+#				if player has 6 Ice:	#{Checks if player has 6 ice}
+#					if player has 21 Diamond:	#{Checks if player has 21 Diamonds} 
+#						message "&eYou have exchanged 21 Diamonds and 6 Ice for 1x Ice Cream Sword" #{Message}
+#						remove 21 diamond from player's inventory	#{Removes 21 diamonds from the player}
+#						remove 6 ice from player's inventory	#{Removes 6 ice from player}
+#						add 1 stone sword with name "&eIce Cream Sword" with lore "&7Ice Cream is good||&7I like it." to the player #{The item given in exchange for other items}
+#						stop 	#{Stops the loop}
+				
+command /event-purchase-IceCreamSword:
+	trigger: 
+		loop 1 times:
+			loop all items in player's inventory:
+				if player has 6 Ice:
+					if player has 21 Diamond:
+						message "&eYou have exchanged 21 Diamonds and 6 Ice for 1x Ice Cream Sword"
+						remove 21 diamond from player's inventory
+						remove 6 ice from player's inventory
+						add 1 stone sword with name "&eIce Cream Sword" with lore "&7Ice Cream is good||&7I like it." to the player
+						stop
+					
+command /event-purchase-NiceSword:
+	trigger:
+		loop 1 times:
+			loop all items in player's inventory:
+				if name of loop-item contains "&eIce Cream Sword":
+					if player has 2 gold ingots:
+						message "&eYou have exchanged 2 Gold Ingots and 1 Ice Cream Sword for 1x Nice Sword" to the player
+						remove 2 gold ingot from player's inventory
+						remove 1 stone sword with name "&eIce Cream Sword" with lore "&7Ice Cream is good||&7I like it." from the player
+						add 1 diamond sword with name "&eNice Sword" with lore "&7Only for nice people||&7||&7NICE!" to the player
+						stop 
